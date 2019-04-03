@@ -23,7 +23,7 @@ namespace DeansOffice
         public MainWindow()
         {
             InitializeComponent();
-            var students= DAL.StudentDBService.GetStudentData();
+            var students = DAL.StudentDBService.GetStudentData();
             DataGrid.ItemsSource = students;
         }
     }

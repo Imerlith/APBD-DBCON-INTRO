@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeansOffice"
         mc:Ignorable="d"
-        Title="Deans Office" Height="450" Width="800">
+        Title="Deans Office" Height="450" Width="800" >
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -28,7 +28,7 @@
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="50" HorizontalAlignment="Left">
             <MenuItem Header="Plik"/>
         </Menu>
-        <DataGrid Name="DataGrid" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" BorderThickness="2" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid Name="DataGrid" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"  IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" Width="*"/>
                 <DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" Width="*"/>

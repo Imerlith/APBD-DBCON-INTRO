@@ -9,8 +9,8 @@ namespace DeansOffice.Structures
     class Student
     {
        public string IndexNumber  { get; set; }
-       public string FirstName { get; set; }
-       public string LastName{ get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
        public string Address { get; set; }
        public string Studies { get; set; }
        
