@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeansOffice"
         mc:Ignorable="d"
-        Title="Deans Office" Height="450" Width="800" >
+        Title="Deans Office" Height="450" Width="800" WindowStartupLocation="CenterScreen" >
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -22,13 +22,15 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Lista studentów" Grid.Row="1" FontSize="30" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Button Content="Dodaj" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" Margin="5" Width="80" Height="30" Padding="5"/>
-        <Button Content="Usuń" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right"  Margin="5" Width="80" Height="30"/>
+        <Button Name="AddNewStudentButton" Content="Dodaj" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" 
+                Margin="5" Width="80" Height="30" Padding="5" Click="AddNewStudentButton_Click"/>
+        <Button Name="DeleteButton" Content="Usuń" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right"  Margin="5" Width="80" Height="30" Click="DeleteButton_Click"/>
         <Label Name="HowManySelectedLabel" Content="Wybrales" Grid.Row="3" Grid.Column="1" />
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="50" HorizontalAlignment="Left">
             <MenuItem Header="Plik"/>
         </Menu>
-        <DataGrid Name="DataGrid" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"  IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid Name="DataGrid" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"  IsReadOnly="True" 
+                  AutoGenerateColumns="False" SelectionMode="Extended" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" Width="*"/>
                 <DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" Width="*"/>

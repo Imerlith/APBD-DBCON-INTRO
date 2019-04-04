@@ -73,8 +73,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddStudentWindow.xaml.cs">
+      <DependentUpon>AddStudentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Structures\Student.cs" />
     <Compile Include="Structures\Studies.cs" />
+    <Page Include="AddStudentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

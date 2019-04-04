@@ -25,6 +25,35 @@ namespace DeansOffice
             InitializeComponent();
             var students = DAL.StudentDBService.GetStudentData();
             DataGrid.ItemsSource = students;
+
+        }
+
+        
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addStudnetWindow = new AddStudentWindow();
+            addStudnetWindow.ShowDialog();
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var dg = sender as DataGrid;
+            var slectedCount = dg.SelectedItems.Count;
+            if (slectedCount > 1)
+            {
+                HowManySelectedLabel.Content = "Wybrałeś " + slectedCount + " studentów";
+            }
+            else
+            {
+                HowManySelectedLabel.Content = "";
+            }
+
         }
     }
 }

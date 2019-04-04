@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeansOffice.Structures
 {
-    class Student
+   public class Student
     {
        public string IndexNumber  { get; set; }
         public string FirstName { get; set; }
