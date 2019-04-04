@@ -25,7 +25,7 @@
         <Button Name="AddNewStudentButton" Content="Dodaj" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" 
                 Margin="5" Width="80" Height="30" Padding="5" Click="AddNewStudentButton_Click"/>
         <Button Name="DeleteButton" Content="Usuń" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right"  Margin="5" Width="80" Height="30" Click="DeleteButton_Click"/>
-        <Label Name="HowManySelectedLabel" Content="Wybrales" Grid.Row="3" Grid.Column="1" />
+        <Label Name="HowManySelectedLabel" Content="" Grid.Row="3" Grid.Column="1" />
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="50" HorizontalAlignment="Left">
             <MenuItem Header="Plik"/>
         </Menu>

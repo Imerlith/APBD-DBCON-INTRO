@@ -13,6 +13,10 @@ namespace DeansOffice.Structures
         public string LastName { get; set; }
        public string Address { get; set; }
        public string Studies { get; set; }
-       
+        public override string ToString()
+        {
+            return $"{IndexNumber},{FirstName}, {LastName} ,{Address} ,{Studies} ";
+        }
+
     }
 }

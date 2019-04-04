@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
+using DeansOffice.Structures;
 namespace DeansOffice.DAL
 {
     class StudentDBService
     {
 
 
-        public  static  ObservableCollection<Structures.Student> GetStudentData()
+        public  static  ObservableCollection<Student> GetStudentData()
         {
-            var students = new ObservableCollection<Structures.Student>();
+            var students = new ObservableCollection<Student>();
             const string connectionString = "Data Source=db-mssql;Initial Catalog=s16540;Integrated Security=True";
             using (var conn= new SqlConnection(connectionString))
             {
@@ -32,7 +32,7 @@ namespace DeansOffice.DAL
                         while (reader.Read())
                         {
 
-                            students.Add(new Structures.Student
+                            students.Add(new Student
                             {
                                 IndexNumber = reader["IndexNumber"].ToString(),
                                 FirstName = reader["FirstName"].ToString(),
@@ -49,12 +49,16 @@ namespace DeansOffice.DAL
             }
             return students;
         }
-        public static ObservableCollection<Structures.Studies> GetStudiesList()
+        public static ObservableCollection<Studies> GetStudiesList()
         {
-            var ListOfStudies = new ObservableCollection<Structures.Studies>();
+            var ListOfStudies = new ObservableCollection<Studies>();
 
 
             return ListOfStudies;
+        }
+        public static void DeleteFromDB(IEnumerable<Student> toDelete)
+        {
+
         }
 
     }

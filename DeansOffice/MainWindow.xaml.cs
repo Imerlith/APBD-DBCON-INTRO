@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,21 @@ namespace DeansOffice
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            var selectedCount = DataGrid.SelectedItems.Count;
+            if (selectedCount > 0)
+            {
+                var selected = DataGrid.SelectedItems.Cast<Structures.Student>().ToList();
+                var source = DataGrid.ItemsSource as ObservableCollection<Structures.Student>;
+                if (source != null)
+                {
+                    foreach(Structures.Student student in selected)
+                    {
+                        source.Remove(student);
+                    }
+                    DAL.StudentDBService.DeleteFromDB(selected);
+                }
+                
+            }
 
         }
 
