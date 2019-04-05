@@ -12,7 +12,8 @@ namespace DeansOffice.Structures
         public string FirstName { get; set; }
         public string LastName { get; set; }
        public string Address { get; set; }
-       public string Studies { get; set; }
+       public Studies Studies { get; set; }
+        public IEnumerable<Subject> Subjects { get; set; }
         public override string ToString()
         {
             return $"{IndexNumber},{FirstName}, {LastName} ,{Address} ,{Studies} ";

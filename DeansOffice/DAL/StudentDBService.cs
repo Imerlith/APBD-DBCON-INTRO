@@ -11,11 +11,14 @@ namespace DeansOffice.DAL
 {
     class StudentDBService
     {
-
+        public static List<Studies> ListOfStudies;
+        public static List<Subject> ListOfSubjects;
 
         public  static  ObservableCollection<Student> GetStudentData()
         {
             var students = new ObservableCollection<Student>();
+            ListOfStudies = new List<Studies>();
+            ListOfSubjects = new List<Subject>();
             const string connectionString = "Data Source=db-mssql;Initial Catalog=s16540;Integrated Security=True";
             using (var conn= new SqlConnection(connectionString))
             {
@@ -38,24 +41,36 @@ namespace DeansOffice.DAL
                                 FirstName = reader["FirstName"].ToString(),
                                 LastName = reader["LastName"].ToString(),
                                 Address = reader["Address"].ToString(),
-                                Studies = reader["Name"].ToString()
+                                Studies = new Studies { Name = reader["Name"].ToString() }
                             });
                         }
                     }
-                }catch (SqlException)
+                    using (var command = new SqlCommand("select * from apbd.studies", conn))
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ListOfStudies.Add(new Studies { Name = reader["Name"].ToString() });
+                        }
+                    }
+                    using (var command = new SqlCommand("select * from apbd.subject", conn))
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ListOfSubjects.Add(new Subject { Name = reader["Name"].ToString() });
+                        }
+                    }
+
+                }
+                catch (SqlException)
                 {
                     MessageBox.Show("Błąd połączenia z bazą danych");
                 }
             }
             return students;
         }
-        public static ObservableCollection<Studies> GetStudiesList()
-        {
-            var ListOfStudies = new ObservableCollection<Studies>();
-
-
-            return ListOfStudies;
-        }
+       
         public static void DeleteFromDB(IEnumerable<Student> toDelete)
         {
 

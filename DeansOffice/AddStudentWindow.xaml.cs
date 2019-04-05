@@ -26,6 +26,8 @@ namespace DeansOffice
         public AddStudentWindow()
         {
             InitializeComponent();
+            StudiesComboBox.ItemsSource = DAL.StudentDBService.ListOfStudies;
+            SubjectListBox.ItemsSource = DAL.StudentDBService.ListOfSubjects;
         }
         public AddStudentWindow(Student student)
         {
@@ -39,8 +41,18 @@ namespace DeansOffice
             LastNameTxtBox.Text = student.LastName;
             FirstNameTxtBox.Text = student.FirstName;
             IndexTxtBox.Text = student.IndexNumber;
-            StudiesComboBox.ItemsSource = DAL.StudentDBService.GetStudiesList();
+            StudiesComboBox.ItemsSource = DAL.StudentDBService.ListOfStudies;
             StudiesComboBox.SelectedItem = student.Studies;
+            var subjects = DAL.StudentDBService.ListOfSubjects;
+            foreach(Subject subject in subjects)
+            {
+                if (student.Subjects.Contains(subject))
+                {
+                    subject.IsChecked = true;
+                }
+            }
+            SubjectListBox.ItemsSource = subjects;
+
         }
 
         private void AddStudentButton_Click(object sender, RoutedEventArgs e)
@@ -53,8 +65,8 @@ namespace DeansOffice
             {
                 var nStudent = new Student
                 {
-                    FirstName = FirstNameTxtBox.Text,
-                    LastName = LastNameTxtBox.Text,
+                    FirstName = NormalizeInput(FirstNameTxtBox.Text),
+                    LastName = NormalizeInput(LastNameTxtBox.Text),
                     IndexNumber = IndexTxtBox.Text
                 };
                 AddStudent(this, nStudent);
@@ -79,6 +91,11 @@ namespace DeansOffice
             }
 
             return true;
+        }
+        private string NormalizeInput(string input)
+        {
+           input = Regex.Replace(input, @"\s+", "");
+            return input.First().ToString().ToUpper() + input.Substring(1).ToLower();
         }
        
     }
