@@ -40,11 +40,16 @@ namespace DeansOffice
                 var source = DataGrid.ItemsSource as ObservableCollection<Structures.Student>;
                 if (source != null)
                 {
-                    foreach(Structures.Student student in selected)
+                    if(MessageBox.Show($"Czy napewno chcesz usunąć {selectedCount} studentów ?", "Question",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        source.Remove(student);
+                        foreach (Structures.Student student in selected)
+                        {
+                            source.Remove(student);
+                        }
+                        DAL.StudentDBService.DeleteFromDB(selected);
                     }
-                    DAL.StudentDBService.DeleteFromDB(selected);
+                   
                 }
                 
             }
@@ -55,6 +60,7 @@ namespace DeansOffice
         {
             var addStudnetWindow = new AddStudentWindow();
             addStudnetWindow.ShowDialog();
+            
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
