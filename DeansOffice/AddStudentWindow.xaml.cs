@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +18,11 @@ namespace DeansOffice
     /// <summary>
     /// Interaction logic for AddStudentWindow.xaml
     /// </summary>
+
+    public delegate void AddStudentHandler(object sender, Structures.Student nStudent);
     public partial class AddStudentWindow : Window
     {
+        public event AddStudentHandler AddStudent;  
         public AddStudentWindow()
         {
             InitializeComponent();
@@ -27,6 +31,7 @@ namespace DeansOffice
         {
             InitializeComponent();
             FillForm(student);
+            
         }
 
         private void FillForm(Student student)
@@ -46,12 +51,35 @@ namespace DeansOffice
             }
             else
             {
-
+                var nStudent = new Student
+                {
+                    FirstName = FirstNameTxtBox.Text,
+                    LastName = LastNameTxtBox.Text,
+                    IndexNumber = IndexTxtBox.Text
+                };
+                AddStudent(this, nStudent);
+                Close();
             }
         }
         private bool ValidateInput()
         {
-            return false;
+            var lName = LastNameTxtBox.Text;
+            var fName = FirstNameTxtBox.Text;
+            var index = IndexTxtBox.Text;
+            if(string.IsNullOrWhiteSpace(lName) || string.IsNullOrWhiteSpace(fName) || string.IsNullOrWhiteSpace(index))
+            {
+                return false;
+            }
+            string indexPattern = "[s]\\d{5}";
+            Regex regex = new Regex(indexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            var matches = regex.Match(index);
+            if (!matches.Success)
+            {
+                return false;
+            }
+
+            return true;
         }
+       
     }
 }

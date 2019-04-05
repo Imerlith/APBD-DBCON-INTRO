@@ -30,7 +30,8 @@
             <MenuItem Header="Plik"/>
         </Menu>
         <DataGrid Name="DataGrid" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"  IsReadOnly="True" 
-                  AutoGenerateColumns="False" SelectionMode="Extended" SelectionChanged="DataGrid_SelectionChanged">
+                  AutoGenerateColumns="False" SelectionMode="Extended" SelectionChanged="DataGrid_SelectionChanged"
+                  MouseDoubleClick="DataGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" Width="*"/>
                 <DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" Width="*"/>

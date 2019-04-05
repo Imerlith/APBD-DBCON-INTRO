@@ -59,6 +59,7 @@ namespace DeansOffice
         private void AddNewStudentButton_Click(object sender, RoutedEventArgs e)
         {
             var addStudnetWindow = new AddStudentWindow();
+            addStudnetWindow.AddStudent += new AddStudentHandler(AddStudentHandler);
             addStudnetWindow.ShowDialog();
             
         }
@@ -76,6 +77,23 @@ namespace DeansOffice
                 HowManySelectedLabel.Content = "";
             }
 
+        }
+        private void AddStudentHandler(object sender, Structures.Student nStudent)
+        {
+            var source = DataGrid.ItemsSource as ObservableCollection<Structures.Student>;
+            source.Add(nStudent);
+        }
+
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var dg = sender as DataGrid;
+            var selected = dg.SelectedItem;
+            if (selected != null)
+            {
+                var student = selected as Structures.Student;
+                var addWindow = new AddStudentWindow(student);
+                addWindow.ShowDialog();
+            }
         }
     }
 }

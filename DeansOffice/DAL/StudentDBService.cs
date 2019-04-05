@@ -60,6 +60,10 @@ namespace DeansOffice.DAL
         {
 
         }
+        public static void AddToDB(Student student)
+        {
+
+        }
 
     }
     
