@@ -156,7 +156,7 @@ namespace DeansOffice.DAL
                         $"insert into apbd.student(idstudent,firstname,lastname,address,indexnumber,idstudies)" +
                         $" values({nIndex},'{student.FirstName}','{student.LastName}','nie podano','{student.IndexNumber}',1);" +
                         $" SET IDENTITY_INSERT apbd.student off ; ";
-                    MessageBox.Show(str);
+                    
                     using (var command = new SqlCommand(str,con))
                     {
                         command.ExecuteNonQuery();
