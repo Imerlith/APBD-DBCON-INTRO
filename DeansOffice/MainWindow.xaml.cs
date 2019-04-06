@@ -93,8 +93,20 @@ namespace DeansOffice
             {
                 var student = selected as Structures.Student;
                 var addWindow = new AddStudentWindow(student);
+                addWindow.UpdateStudent += new UpdateStudentHandler(UpdateStudentHandler);
                 addWindow.ShowDialog();
             }
+        }
+        private void UpdateStudentHandler(object sender, Structures.Student uStudent)
+        {
+            var source = DataGrid.ItemsSource as ObservableCollection<Structures.Student>;
+            
+            var toUpdate = source[source.IndexOf(uStudent)];
+            toUpdate.FirstName = uStudent.FirstName;
+            toUpdate.LastName = uStudent.LastName;
+            toUpdate.IndexNumber = uStudent.IndexNumber;
+            DataGrid.Items.Refresh();
+            DAL.StudentDBService.UpdateDB(uStudent);
         }
     }
 }

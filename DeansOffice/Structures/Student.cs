@@ -20,6 +20,11 @@ namespace DeansOffice.Structures
         {
             return $"{IndexNumber},{FirstName}, {LastName} ,{Address} ,{Studies} ";
         }
+        public override bool Equals(object obj)
+        {
+            var toCheck = obj as Student;
+            return toCheck.id == id;
+        }
 
     }
 }

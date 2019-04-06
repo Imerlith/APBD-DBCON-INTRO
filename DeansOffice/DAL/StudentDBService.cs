@@ -166,6 +166,26 @@ namespace DeansOffice.DAL
             }
 
         }
+        public static void UpdateDB(Student student)
+        {
+            using(var con = new SqlConnection(ConString))
+            {
+                try
+                {
+                    con.Open();
+                    using(var command = new SqlCommand($"update apbd.student set " +
+                        $"FirstName = '{student.FirstName}',LastName='{student.LastName}',IndexNumber='{student.IndexNumber}'" +
+                        $" where idstudent = {student.id}", con))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException)
+                {
+                    MessageBox.Show("Błąd połączenia z bazą danych");
+                }
+            }
+        }
 
     }
     

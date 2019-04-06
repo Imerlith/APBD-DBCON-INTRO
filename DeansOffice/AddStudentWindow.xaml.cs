@@ -20,10 +20,13 @@ namespace DeansOffice
     /// Interaction logic for AddStudentWindow.xaml
     /// </summary>
 
-    public delegate void AddStudentHandler(object sender, Structures.Student nStudent);
+    public delegate void AddStudentHandler(object sender, Student nStudent);
+    public delegate void UpdateStudentHandler(object sender, Student uStudent);
     public partial class AddStudentWindow : Window
     {
-        public event AddStudentHandler AddStudent;  
+        public event AddStudentHandler AddStudent;
+        public event UpdateStudentHandler UpdateStudent;
+        private Student received;
         public AddStudentWindow()
         {
             InitializeComponent();
@@ -33,19 +36,20 @@ namespace DeansOffice
         public AddStudentWindow(Student student)
         {
             InitializeComponent();
-            FillForm(student);
+            received = student;
+            FillForm();
             
         }
 
-        private void FillForm(Student student)
+        private void FillForm()
         {
-            LastNameTxtBox.Text = student.LastName;
-            FirstNameTxtBox.Text = student.FirstName;
-            IndexTxtBox.Text = student.IndexNumber;
+            LastNameTxtBox.Text = received.LastName;
+            FirstNameTxtBox.Text = received.FirstName;
+            IndexTxtBox.Text = received.IndexNumber;
             StudiesComboBox.ItemsSource = DAL.StudentDBService.ListOfStudies;
-            StudiesComboBox.SelectedItem = student.Studies;
+            StudiesComboBox.SelectedItem = received.Studies;
            
-            SubjectListBox.ItemsSource = student.Subjects;
+            SubjectListBox.ItemsSource = received.Subjects;
 
         }
 
@@ -64,10 +68,28 @@ namespace DeansOffice
                     IndexNumber = IndexTxtBox.Text,
                     Studies = StudiesComboBox.SelectedItem as Studies
                 };
-                AddStudent(this, nStudent);
+                if (received == null)
+                {
+                    AddStudent(this, nStudent);
+                }
+                else
+                {
+                    if (IsChanged(nStudent))
+                    {
+                        nStudent.id = received.id;
+                        UpdateStudent(this, nStudent);
+                    }
+                }
+               
                 Close();
             }
         }
+        private bool IsChanged(Student student)
+        {
+            return student.IndexNumber != received.IndexNumber || student.FirstName != received.FirstName
+                || student.LastName != received.LastName;
+        }
+
         private bool ValidateInput()
         {
             var lName = LastNameTxtBox.Text;
