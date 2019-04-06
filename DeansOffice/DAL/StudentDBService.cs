@@ -102,20 +102,36 @@ namespace DeansOffice.DAL
        
         public static void DeleteFromDB(IEnumerable<Student> toDelete)
         {
-            //using(var con = new SqlConnection(ConString))
-            //{
-            //    try
-            //    {
-            //        con.Open();
-            //        var transaction = con.BeginTransaction();
-            //        var command = new SqlCommand($"delete from apbd.student where idstudent = ", con);
+            var sqlCommands = new List<string>();
+            foreach(Student student in toDelete)
+            {
+                sqlCommands.Add($"delete from apbd.student_subject where idstudent = {student.id}");
+                sqlCommands.Add($"delete from apbd.student where idstudent = {student.id}");
+            }
+            using (var con = new SqlConnection(ConString))
+            {
+                try
+                {
+                    con.Open();
+                    using (var transaction = con.BeginTransaction())
+                    {
+                        foreach(string s in sqlCommands)
+                        {
+                            using(var command = new SqlCommand(s, con, transaction))
+                            {
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        transaction.Commit();
+                    }
+                        
 
-            //    }
-            //    catch (SqlException)
-            //    {
-            //        MessageBox.Show("Błąd połączenia z bazą danych");
-            //    }
-            //}
+                }
+                catch (SqlException)
+                {
+                    MessageBox.Show("Błąd połączenia z bazą danych");
+                }
+            }
 
         }
         public static void AddToDB(Student student)
