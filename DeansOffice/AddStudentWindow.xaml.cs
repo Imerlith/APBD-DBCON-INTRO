@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -43,15 +44,8 @@ namespace DeansOffice
             IndexTxtBox.Text = student.IndexNumber;
             StudiesComboBox.ItemsSource = DAL.StudentDBService.ListOfStudies;
             StudiesComboBox.SelectedItem = student.Studies;
-            var subjects = DAL.StudentDBService.ListOfSubjects;
-            foreach(Subject subject in subjects)
-            {
-                if (student.Subjects.Contains(subject))
-                {
-                    subject.IsChecked = true;
-                }
-            }
-            SubjectListBox.ItemsSource = subjects;
+           
+            SubjectListBox.ItemsSource = student.Subjects;
 
         }
 
@@ -67,7 +61,8 @@ namespace DeansOffice
                 {
                     FirstName = NormalizeInput(FirstNameTxtBox.Text),
                     LastName = NormalizeInput(LastNameTxtBox.Text),
-                    IndexNumber = IndexTxtBox.Text
+                    IndexNumber = IndexTxtBox.Text,
+                    Studies = StudiesComboBox.SelectedItem as Studies
                 };
                 AddStudent(this, nStudent);
                 Close();
@@ -97,6 +92,12 @@ namespace DeansOffice
            input = Regex.Replace(input, @"\s+", "");
             return input.First().ToString().ToUpper() + input.Substring(1).ToLower();
         }
-       
+
+        private void DelStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+           
+            
+        }
     }
 }
