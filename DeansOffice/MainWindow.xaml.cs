@@ -82,6 +82,7 @@ namespace DeansOffice
         {
             var source = DataGrid.ItemsSource as ObservableCollection<Structures.Student>;
             source.Add(nStudent);
+            DAL.StudentDBService.AddToDB(nStudent);
         }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

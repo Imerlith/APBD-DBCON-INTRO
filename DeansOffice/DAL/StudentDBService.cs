@@ -136,6 +136,34 @@ namespace DeansOffice.DAL
         }
         public static void AddToDB(Student student)
         {
+            int nIndex = 0;
+            
+            using (var con = new SqlConnection(ConString))
+            {
+                try
+                {
+                    con.Open();
+                    using (var command = new SqlCommand("select max(idstudent) as 'max' from apbd.student", con))
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            nIndex = int.Parse(reader["max"].ToString())+1;
+                        }
+                    }
+
+                    var str = $"SET IDENTITY_INSERT apbd.student on ; insert into apbd.student(idstudent,firstname,lastname,address,indexnumber,idstudies) values({nIndex},'{student.FirstName}','{student.LastName}','nie podano','{student.IndexNumber}',1); SET IDENTITY_INSERT apbd.student off ; ";
+                    MessageBox.Show(str);
+                    using (var command = new SqlCommand(str,con))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException)
+                {
+                    MessageBox.Show("Błąd połączenia z bazą danych");
+                }
+            }
 
         }
 
