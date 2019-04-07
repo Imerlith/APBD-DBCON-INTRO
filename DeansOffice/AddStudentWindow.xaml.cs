@@ -70,6 +70,7 @@ namespace DeansOffice
                 };
                 if (received == null)
                 {
+                    nStudent.id = 9999;
                     AddStudent(this, nStudent);
                 }
                 else

@@ -37,15 +37,20 @@ namespace DeansOffice
             if (selectedCount > 0)
             {
                 var selected = DataGrid.SelectedItems.Cast<Structures.Student>().ToList();
+                
                 var source = DataGrid.ItemsSource as ObservableCollection<Structures.Student>;
                 if (source != null)
                 {
                     if(MessageBox.Show($"Czy napewno chcesz usunąć {selectedCount} studentów ?", "Question",
                         MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
+                        
                         foreach (Structures.Student student in selected)
                         {
-                            source.Remove(student);
+                            
+                           
+                            //if (source.Contains(student))
+                           source.Remove(student);
                         }
                         DAL.StudentDBService.DeleteFromDB(selected);
                     }
@@ -100,8 +105,8 @@ namespace DeansOffice
         private void UpdateStudentHandler(object sender, Structures.Student uStudent)
         {
             var source = DataGrid.ItemsSource as ObservableCollection<Structures.Student>;
-            
-            var toUpdate = source[source.IndexOf(uStudent)];
+            var index = source.ToList().FindIndex(s => s.id == uStudent.id);
+            var toUpdate = source[index];
             toUpdate.FirstName = uStudent.FirstName;
             toUpdate.LastName = uStudent.LastName;
             toUpdate.IndexNumber = uStudent.IndexNumber;

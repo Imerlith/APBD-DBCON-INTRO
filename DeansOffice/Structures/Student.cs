@@ -18,13 +18,17 @@ namespace DeansOffice.Structures
         public ObservableCollection<Subject> Subjects { get; set; }
         public override string ToString()
         {
-            return $"{IndexNumber},{FirstName}, {LastName} ,{Address} ,{Studies} ";
+            return $"id={id}, {IndexNumber},{FirstName}, {LastName} ,{Address} ,{Studies} ";
         }
-        public override bool Equals(object obj)
-        {
-            var toCheck = obj as Student;
-            return toCheck.id == id;
-        }
+        //public override bool Equals(object obj)
+        //
+        //    var toCheck = obj as Student;
+        //    return toCheck.id == id;
+        //}
+        //public override int GetHashCode()
+        //{
+        //    return id.GetHashCode();
+        //}
 
     }
 }
